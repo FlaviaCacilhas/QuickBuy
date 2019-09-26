@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QuickBuy.Domain.Entities
 {
-    public class User
+    public class User : Entities
     {
         public int Id { get; set; }
         public string Email { get; set; }
@@ -15,5 +15,14 @@ namespace QuickBuy.Domain.Entities
 
         // Um usuario pode ter nem um ou muitos pedidos
         public ICollection<Pedido> Pedidos { get; set; }
+
+        public override void Validate()
+        {
+            if (string.IsNullOrEmpty(Email))
+                AdicionarCritica("Email não foi informado");
+
+            if (string.IsNullOrEmpty(Senha))
+                AdicionarCritica("Senha não foi informado");
+        }
     }
 }
